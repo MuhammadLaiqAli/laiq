@@ -444,333 +444,8 @@ void Grid_Work::PrintGrid(ofstream &out,int Rows,int Columns)
 }
 
 
-
 //   -_-_-_-_-_-_-_-_-_-_-_-_-_- QUESTION NUMBER 2 _-_-_-_-_-_-_-_-_ FUNCTIONS -_-_-_-__-_____
 
-
-////function to deallocate matrix
-//void DeallocateMatrix(char** matrix, int& size) {
-//	for (int i = 0; i < size; i++)
-//		if (matrix[i] != NULL)
-//			delete[] matrix[i];
-//
-//	if (matrix != NULL)
-//		delete[] matrix;
-//}
-//
-////outputs Grid
-//void Output_Grid(char** List, int& size) {
-//	if (List == NULL) {
-//		cout << "\nError: Grid not made\n";
-//		return;
-//	}
-//	
-//	cout << "\t";
-//	for (int j = 0; List[0][j] != '\0'; j++)
-//		cout << j << " ";
-//	cout << endl << endl;
-//
-//	for (int i = 0; i < size; i++) {
-//		cout << i << "\t";
-//		for (int j = 0; List[i][j] != '\0'; j++)
-//			cout << List[i][j] << ' ';
-//		cout << endl;
-//	}
-//}
-//
-////outputs List of words
-//void Output_List(char** List, int& size) {
-//	if (List == NULL) {
-//		cout << "\nError: list of words not made\n";
-//		return;
-//	}
-//
-//	for (int i = 0; i < size; i++) {
-//		cout << List[i] << endl;
-//	}
-//}
-//
-////function to get length of string without spaces
-//int StringLength_NoSpace(char* str) {
-//	int len = 0, count = 0;
-//	for (; str[len] != '\0'; len++, count++)
-//		if (str[len] == ' ') count--;
-//
-//	return count;
-//}
-//
-////converts small letter to capital letter
-//char Convert_Capital(char c) {
-//	if (c >= 'a' && c <= 'z')
-//		return c - 32;
-//
-//	return c;
-//}
-//
-////returns a copy of the string without space
-//char* Copy_String_NoSpace(char* str) {
-//	int count = 0, len = StringLength_NoSpace(str);
-//	char* NewStr = new char[len + 1];
-//
-//	for (int i = 0; str[i] != '\0'; i++)
-//		if (str[i] != ' ')
-//			NewStr[count++] = Convert_Capital(str[i]);
-//
-//	NewStr[len] = '\0';
-//	return NewStr;
-//}
-//
-////Takes String input from files
-//char* InputString(ifstream & fin) {
-//	char* temp = new char[80];
-//	fin.getline(temp, 80, '\n');
-//
-//	char* ans = Copy_String_NoSpace(temp);
-//
-//	delete[] temp;
-//	return ans;
-//}
-//
-////Takes String input from users
-//char* InputString() {
-//	char* temp = new char[80];
-//	cin.getline(temp, 80, '\n');
-//
-//	char* ans = Copy_String_NoSpace(temp);
-//
-//	delete[] temp;
-//	return ans;
-//}
-//
-////gets grid from file "input.txt"
-//char** GetGrid(ifstream& fin, int& size, string file) {
-//	size = 0;
-//	char* temp;
-//	fin.open(file);
-//	
-//	if (!fin) {
-//		cout << "\nError: file not found, sending NULL\n";
-//		return NULL;
-//	}
-//
-//	while (!fin.eof()) {
-//		temp = InputString(fin);
-//		delete[] temp;
-//		size++;
-//	}
-//
-//	fin.close();
-//	fin.open(file);
-//
-//	char** grid = new char* [size];
-//	for (int i = 0; i < size; i++)
-//		grid[i] = InputString(fin);
-//
-//	fin.close();
-//
-//	return grid;
-//}
-//
-//char** GetWords(int& numOfWords) {
-//	cout << "Enter number of words(must be grater then 0): ";
-//	cin >> numOfWords;
-//	while (numOfWords < 1) {
-//		cout << "Error: number of words less then 1, Re-enter number of words(must be grater then 0): ";
-//		cin >> numOfWords;
-//	}
-//
-//	cin.ignore();
-//	char** grid = new char* [numOfWords];
-//	for (int i = 0; i < numOfWords; i++) {
-//		cout << "Enter word: ";
-//		grid[i] = InputString();
-//	}
-//
-//	return grid;
-//}
-//
-////gets words from file "wordList.txt"
-//char** GetWords(ifstream& fin, int& numOfWords, string file) {
-//	numOfWords = 0;
-//	char* temp;
-//	fin.open(file);
-//
-//	if (!fin) {
-//		cout << "\nError: file not found, sending NULL\n";
-//		return NULL;
-//	}
-//
-//	while (!fin.eof()) {
-//		temp = InputString(fin);
-//		delete[] temp;
-//		numOfWords++;
-//	}
-//
-//	fin.close();
-//	fin.open(file);
-//
-//	char** grid = new char* [numOfWords];
-//	for (int i = 0; i < numOfWords; i++)
-//		grid[i] = InputString(fin);
-//
-//	fin.close();
-//
-//	return grid;
-//}
-//
-////checks left to right
-//bool check_left_right(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y][X + i] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks right to left
-//bool check_right_left(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (X - len + 1 < 0)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y][X - i] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks top to bottom
-//bool check_top_bottom(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (Y + len - 1 > size)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y + i][X] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks bottom to top
-//bool check_bottom_top(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (Y - len + 1 < 0)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y - i][X] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks from top left to bottom right
-//bool check_topLeft_bottomRight(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (Y + len - 1 > size)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y + i][X + i] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks from bottom left to top right
-//bool check_bottomLeft_topRight(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (Y - len + 1 < 0)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y - i][X + i] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks from top right to bottom left
-//bool check_topRight_bottomLeft(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (X - len + 1 < 0 || Y + len - 1 > size)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y + i][X - i] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////checks from bottom right to top left
-//bool check_bottomRight_topLeft(char** grid, const int& size, char* str, const int& len, int Y, int X) {
-//	if (X - len + 1 < 0 || Y - len + 1 < 0)
-//		return false;
-//
-//	for (int i = 0; i < len; i++)
-//		if (grid[Y - i][X - i] != str[i])
-//			return false;
-//
-//	return true;
-//}
-//
-////Searches for word and outputs in the file
-//void SearchWord(ofstream& fout, char** grid, const int& size, char* str) {
-//	if (grid == NULL)
-//		return;
-//
-//	fout << str << "\t";
-//	cout << str << "\t";
-//
-//	int len = StringLength_NoSpace(str);
-//	bool found = false;
-//
-//	for (int i = 0; i < size && !found; i++) 
-//		for (int j = 0; grid[i][j] != 0 && !found; j++)
-//			if (grid[i][j] == str[0]) {
-//				found = true;
-//
-//				if (check_left_right(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i << ", " << j + len - 1 << "}";
-//					cout << "{" << i << ", " << j << "} {" << i << ", " << j + len - 1 << "}";
-//				}
-//				else if (check_right_left(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i << ", " << j - len + 1 << "}";
-//					cout << "{" << i << ", " << j << "} {" << i << ", " << j - len + 1 << "}";
-//				}
-//				else if (check_top_bottom(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i + len - 1 << ", " << j << "}";
-//					cout << "{" << i << ", " << j << "} {" << i + len - 1 << ", " << j << "}";
-//				}
-//				else if (check_bottom_top(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i - len + 1 << ", " << j << "}";
-//					cout << "{" << i << ", " << j << "} {" << i - len + 1 << ", " << j << "}";
-//				}
-//				else if (check_topLeft_bottomRight(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i + len - 1 << ", " << j + len - 1 << "}";
-//					cout << "{" << i << ", " << j << "} {" << i + len - 1 << ", " << j + len - 1 << "}";
-//				}
-//				else if (check_bottomLeft_topRight(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i - len + 1 << ", " << j + len - 1 << "}";
-//					cout << "{" << i << ", " << j << "} {" << i - len + 1 << ", " << j + len - 1 << "}";
-//				}
-//				else if (check_topRight_bottomLeft(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i + len - 1 << ", " << j - len + 1 << "}";
-//					cout << "{" << i << ", " << j << "} {" << i + len - 1 << ", " << j - len + 1 << "}";
-//				}
-//				else if (check_bottomRight_topLeft(grid, size, str, len, i, j)) {
-//					fout << "{" << i << ", " << j << "} {" << i - len + 1 << ", " << j - len + 1 << "}";
-//					cout << "{" << i << ", " << j << "} {" << i - len + 1 << ", " << j - len + 1 << "}";
-//				}
-//				else
-//					found = false;
-//			}
-//
-//	if (!found) {
-//		fout << "Not Found.";
-//		cout << "Not Found.";
-//	}
-//
-//	fout << "\n";
-//	cout << "\n";
-//}
 
 // THIS FUNCTION DEALLOCATED DOUBLE POINTER MATRIX
 void DeallocateMatrix(char** string_array, int& size) 
@@ -1097,7 +772,7 @@ void Search_Word_From_Grid(ofstream& fout, char** new_grid, const int& size, cha
 // THIS FUNCTION TAKES INPUT FROM FILE AND CHECK WORD PRESENT IN GRID OR NOT AND PRINT IT
 void SEARCH_GRID_START()
 { 
-	ifstream fin1,fin2;
+	ifstream fin;
 	ofstream fout;
 	string grid_File;
 	string data_File;
@@ -1110,10 +785,11 @@ void SEARCH_GRID_START()
 
 	cout <<"ENTER NAME OF THE WHERE LOCATION OF WORDS TO BE PLACED (i.e. OUTPUT.txt)";
 	cin >> output_File;
+
 	char** grid, **words;
 	int gridSize, listSize, choice;
 
-	grid = Get_Grid_From_File(fin1, gridSize, grid_File);
+	grid = Get_Grid_From_File(fin, gridSize, grid_File);
 	
 	cout << "Enter 0 to input words by yourself else it will take input from file 'wordList'\n"
 		 << "ENTER CHOICE: ";
@@ -1122,7 +798,7 @@ void SEARCH_GRID_START()
 	if (!choice)
 		words = Get_Words_From_Array(listSize);
 	else {
-		words = Get_Words_From_Array(fin2, listSize, data_File);
+		words = Get_Words_From_Array(fin, listSize, data_File);
 		cout << endl;
 	}
 
